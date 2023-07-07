@@ -24,14 +24,14 @@ const getByIdBooks = asyncHandler(async (req, res) => {
   }
 });
 
-const quaryId = asyncHandler(async (req, res) => {
-  try {
-    const book = await Book.findById(req.query.id);
-    res.status(200).json(book);
-  } catch (error) {
-    res.status(400).json(error);
-  }
-});
+// const quaryId = asyncHandler(async (req, res) => {
+//   try {
+//     const book = await Book.findById(req.query.id);
+//     res.status(200).json(book);
+//   } catch (error) {
+//     res.status(400).json(error);
+//   }
+// });
 
 
 const updateBook = asyncHandler(async (req, res) => {
