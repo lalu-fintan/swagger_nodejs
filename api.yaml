@@ -1,0 +1,201 @@
+openapi: "3.0.0"
+info:
+  title: "Books api docs"
+  version: "0.1"
+  description: "check the books api and the docs"
+  contact:
+    name: foss freaks
+    url: "https://www.google.com"
+    email: "lalu.fintan@gmail.com"
+
+  servers:
+    -url: http://localhost:${process.env.PORT}`
+    description: This is my Local server
+
+# schemes: [http, https]
+
+# swagger is used for other let know how the api's are working.
+
+paths:
+  # get all the books
+  /api/book/:
+    get:
+      summary: get all the books
+      description: It just return all the books
+      tags:
+       - Book
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: Array
+                items:
+                  type: object
+        400:
+          description: user error
+        500:
+          description: internal server error
+
+    # create the book
+    post:
+      tags:
+         - Book
+      summary: create book
+      description: create new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses: 
+        200:
+          description: OK        
+        400:
+          description: user error
+        500:
+          description: internal server error
+
+  # get the book by id
+  /api/book/{id}:
+    get:
+      summary: get by id books
+      description: response the  book based on the id
+      tags:
+       - Book
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            required: true
+      responses:
+        200:
+          description: OK
+          content:
+           application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+        400:
+          description: user error
+        500:
+          description: internal server error
+
+
+
+
+
+# update the book
+
+  /api/book/update/{id}:
+    put:
+      summary: update book
+      description: update book
+      tags:
+       - Book
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: enter the book id
+      requestBody:
+       required: true
+       content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Book"
+         
+      responses: 
+        200:
+          description: update succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Book"
+        
+        400:
+          description: user error
+        500:
+          description: internal server error
+
+
+# delete the book 
+
+  /api/book/delete/{id}:
+   delete:
+    summary: Delete the books
+    description: Delete the specific book
+    tags:
+       - Book
+    produces: 
+      - application/json
+    consumes:
+      - application/json
+    parameters:
+        - in: path
+          name: id
+          required: true
+          type: string        
+    responses: 
+        200:
+          description: delete succesfully
+          content:
+            application/json:
+              schema:
+                type: Array
+                items:
+                  type: object
+        400:
+          description: user error
+        500:
+          description: internal server error
+
+
+# quary
+
+  /api/book/userquary:
+     get:
+      summary: select the book based on quary
+      description: select the book based on quary
+      tags:
+       - Book
+      parameters:
+       - in: quary
+         name: id
+         type: string
+        #  enum: ["apple",samsung,redmi]
+      responses:
+       200:
+        description: OK
+        content:
+         application/json: 
+          schema:
+            $ref: "#/components/schemas/Book"
+
+
+
+
+
+components:
+  schemas: 
+    Book:
+     type: object
+     required: true
+     properties:
+      title:
+        type: string
+        required: true
+      price:
+        type: number 
+        required: true
+      description:
+        type: string  
+        required: true        
+
+
+
+
